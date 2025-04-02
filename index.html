@@ -39,7 +39,8 @@
         const likeButtonEls = document.querySelectorAll('.like-button');
 
         for (const likeButtonEl of likeButtonEls) {
-            likeButtonEl.addEventListener("click", () => {
+            likeButtonEl.addEventListener("click", (event) => {
+                event.stopPropagation();
                 const indexNumber = likeButtonEl.dataset.index;
 
                 if (comments[indexNumber].activeLike) {
@@ -55,14 +56,27 @@
         }
     };
 
+    const answerComment = () => {
+        const answerCommentEls = document.querySelectorAll('.comment');
+
+        for (const answerCommentEl of answerCommentEls) {
+            answerCommentEl.addEventListener("click", () => {
+                const indexNumber = answerCommentEl.dataset.index;
+                console.log(indexNumber);
+                textEl.value = `"${comments[indexNumber].name}" '${comments[indexNumber].text}' Ответ:`;
+                
+            })
+        }
+    };
+
     // Рендер коментариев из списка
     function renderComment(comments) {
 
         comentsEl.innerHTML = comments.map((comment, index) =>
-            `<li class="comment">
+            `<li data-index='${index}' class="comment">
             <div class="comment-header">
               <div>
-                ${comment.name}
+                ${comment.name.replaceAll('<', '&lt;').replaceAll('>', '&gt;')}
                 </div>
               <div>
                 ${comment.date}
@@ -70,7 +84,7 @@
             </div>
             <div class="comment-body">
               <div class="comment-text">
-                ${comment.text}
+                ${comment.text.replaceAll('<', '&lt;').replaceAll('>', '&gt;')}
               </div>
             </div>
             <div class="comment-footer">
@@ -82,11 +96,13 @@
           </li>`
         ).join("");
         initLikeComments();
+        answerComment();
 
         nameEl.value = '';
         textEl.value = '';
     };
     renderComment(comments);
+    
 
     // Добавление нового коментария в список и рендер в HTML + Валидация форм
     buttonEl.addEventListener('click', function (e) {
@@ -114,6 +130,8 @@
         comments.push({ name: nameEl.value, text: textEl.value, date: dateEl, likes: 0, activeLike: false });
         renderComment(comments);
     });
+
+    
 
 </script>
 
