@@ -1,95 +1,95 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Проект "Комменты"</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="styles.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="container">
-      <ul class="comments">
-        <li class="comment">
-          <div class="comment-header">
-            <div>Глеб Фокин</div>
-            <div>12.02.22 12:18</div>
-          </div>
-          <div class="comment-body">
-            <div class="comment-text">
-              Это будет первый комментарий на этой странице
+        <ul class="comments">
+            <li class="comment">
+                <div class="comment-header">
+                    <div>Глеб Фокин</div>
+                    <div>12.02.22 12:18</div>
+                </div>
+                <div class="comment-body">
+                    <div class="comment-text">
+                        Это будет первый комментарий на этой странице
+                    </div>
+                </div>
+                <div class="comment-footer">
+                    <div class="likes">
+                        <span class="likes-counter">3</span>
+                        <button class="like-button"></button>
+                    </div>
+                </div>
+            </li>
+            <li class="comment">
+                <div class="comment-header">
+                    <div>Варвара Н.</div>
+                    <div>13.02.22 19:22</div>
+                </div>
+                <div class="comment-body">
+                    <div class="comment-text">
+                        Мне нравится как оформлена эта страница! ❤
+                    </div>
+                </div>
+                <div class="comment-footer">
+                    <div class="likes">
+                        <span class="likes-counter">75</span>
+                        <button class="like-button -active-like"></button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="add-form">
+            <input type="text" class="add-form-name" placeholder="Введите ваше имя" />
+            <textarea type="textarea" class="add-form-text" placeholder="Введите ваш коментарий" rows="4"></textarea>
+            <div class="add-form-row">
+                <button class="add-form-button">Написать</button>
             </div>
-          </div>
-          <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter">3</span>
-              <button class="like-button"></button>
-            </div>
-          </div>
-        </li>
-        <li class="comment">
-          <div class="comment-header">
-            <div>Варвара Н.</div>
-            <div>13.02.22 19:22</div>
-          </div>
-          <div class="comment-body">
-            <div class="comment-text">
-              Мне нравится как оформлена эта страница! ❤
-            </div>
-          </div>
-          <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter">75</span>
-              <button class="like-button -active-like"></button>
-            </div>
-          </div>
-        </li>
-      </ul>
-      <div class="add-form">
-        <input
-          type="text"
-          class="add-form-name"
-          placeholder="Введите ваше имя"
-        />
-        <textarea
-          type="textarea"
-          class="add-form-text"
-          placeholder="Введите ваш коментарий"
-          rows="4"
-        ></textarea>
-        <div class="add-form-row">
-          <button class="add-form-button">Написать</button>
         </div>
-      </div>
     </div>
-  </body>
+</body>
 
-  <script>
+<script>
     const comentsEl = document.querySelector('.comments');
     const nameEl = document.querySelector('.add-form-name');
     const textEl = document.querySelector('.add-form-text');
     const buttonEl = document.querySelector('.add-form-button');
     const likeButtonEl = document.querySelector('.like-button');
-  
-    buttonEl.addEventListener('click', function (e) {
-      if (nameEl.value == "") {
-        nameEl.classList.add('error');
-        nameEl.style.setProperty("--c", "black");
-        return;
-  
-      } else if (textEl.value == "") {
-        textEl.classList.add('error');
-        textEl.style.setProperty("--c", "black");
-        return;
-      }
-      let currentDate = new Date()
-      const oldList = comentsEl.innerHTML;
-      comentsEl.innerHTML = oldList + `<li class="comment">
+
+    buttonEl.addEventListener('click', function(e) {
+        if (nameEl.value == "") {
+            nameEl.classList.add('error');
+            nameEl.style.setProperty("--c", "black");
+            return;
+
+        } else if (textEl.value == "") {
+            textEl.classList.add('error');
+            textEl.style.setProperty("--c", "black");
+            return;
+        }
+        let currentDate = new Date().toLocaleString();
+        let currentTime = new Date().toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        console.log(currentDate);
+        console.log(currentTime);
+
+
+        const oldList = comentsEl.innerHTML;
+        comentsEl.innerHTML = oldList + `<li class="comment">
             <div class="comment-header">
               <div>
                 ${nameEl.value}
                 </div>
               <div>
-                ${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                ${currentDate} ${currentTime}
               </div>
             </div>
             <div class="comment-body">
@@ -104,20 +104,20 @@
               </div>
             </div>
           </li>`;
-  
-      nameEl.value = '';
-      textEl.value = '';
+
+        nameEl.value = '';
+        textEl.value = '';
     });
-  
-    nameEl.addEventListener('focus', function (e) {
-      nameEl.classList.remove('error');
-      nameEl.style.setProperty("--c", "gray");
+
+    nameEl.addEventListener('focus', function(e) {
+        nameEl.classList.remove('error');
+        nameEl.style.setProperty("--c", "gray");
     });
-  
-    textEl.addEventListener('focus', function (e) {
-      textEl.classList.remove('error');
-      textEl.style.setProperty("--c", "gray");
+
+    textEl.addEventListener('focus', function(e) {
+        textEl.classList.remove('error');
+        textEl.style.setProperty("--c", "gray");
     });
-  
-  </script>
+</script>
+
 </html>
