@@ -1,12 +1,16 @@
-import {initLikeComments, answerComment} from './initListenes.js';
-import {comments} from './data.js';
+import { comments } from './comments.js'
+import { initLikeComments, answerComment } from './initListenes.js'
+export const nameEl = document.querySelector('.add-form-name')
+export const textEl = document.querySelector('.add-form-text')
 
 // Рендер коментариев из списка
 export function renderComment(comments) {
-    const comentsEl = document.querySelector('.comments');
+    const comentsEl = document.querySelector('.comments')
 
-    comentsEl.innerHTML = comments.map((comment, index) =>
-        `<li data-index='${index}' class="comment">
+    comentsEl.innerHTML = comments
+        .map(
+            (comment, index) =>
+                `<li data-index='${index}' class="comment">
         <div class="comment-header">
           <div>
             ${comment.name.replaceAll('<', '&lt;').replaceAll('>', '&gt;')}
@@ -26,11 +30,12 @@ export function renderComment(comments) {
             <button data-index='${index}' class="like-button ${comment.activeLike ? '-active-like' : ''}"></button>
           </div>
         </div>
-      </li>`
-    ).join("");
-    initLikeComments();
-    answerComment();
+      </li>`,
+        )
+        .join('')
+    initLikeComments()
+    answerComment()
 
-    nameEl.value = '';
-    textEl.value = '';
-};
+    nameEl.value = ''
+    textEl.value = ''
+}
