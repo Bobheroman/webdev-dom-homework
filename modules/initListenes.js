@@ -30,7 +30,6 @@ export const answerComment = () => {
     for (const answerCommentEl of answerCommentEls) {
         answerCommentEl.addEventListener('click', () => {
             const indexNumber = answerCommentEl.dataset.index
-            console.log(indexNumber)
             textEl.value = `"${comments[indexNumber].name}" '${comments[indexNumber].text}' Ответ:`
         })
     }
