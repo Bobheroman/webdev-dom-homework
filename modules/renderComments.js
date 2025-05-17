@@ -4,19 +4,26 @@ export const nameEl = document.querySelector('.add-form-name')
 export const textEl = document.querySelector('.add-form-text')
 
 // Рендер коментариев из списка
-export function renderComment(comments) {
+
+export function renderComment() {
     const comentsEl = document.querySelector('.comments')
 
     comentsEl.innerHTML = comments
+
         .map(
             (comment, index) =>
                 `<li data-index='${index}' class="comment">
         <div class="comment-header">
           <div>
-            ${comment.name.replaceAll('<', '&lt;').replaceAll('>', '&gt;')}
+            ${comment.author.name.replaceAll('<', '&lt;').replaceAll('>', '&gt;')}
             </div>
           <div>
-            ${comment.date}
+            ${new Date(comment.date).toLocaleString('ru', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'})}
           </div>
         </div>
         <div class="comment-body">
@@ -27,7 +34,7 @@ export function renderComment(comments) {
         <div class="comment-footer">
           <div class="likes">
             <span class="likes-counter">${comment.likes}</span>
-            <button data-index='${index}' class="like-button ${comment.activeLike ? '-active-like' : ''}"></button>
+            <button data-index='${index}' class="like-button ${comment.isLiked ? '-active-like' : ''}"></button>
           </div>
         </div>
       </li>`,
