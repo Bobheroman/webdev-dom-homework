@@ -11,14 +11,14 @@ export const initLikeComments = () => {
             event.stopPropagation()
             const indexNumber = likeButtonEl.dataset.index
 
-            if (comments[indexNumber].activeLike) {
+            if (comments[indexNumber].isLiked) {
                 comments[indexNumber].likes = comments[indexNumber].likes - 1
-                comments[indexNumber].activeLike = false
-                renderComment(comments)
+                comments[indexNumber].isLiked = false
+                renderComment()
             } else {
                 comments[indexNumber].likes = comments[indexNumber].likes + 1
-                comments[indexNumber].activeLike = true
-                renderComment(comments)
+                comments[indexNumber].isLiked = true
+                renderComment()
             }
         })
     }
@@ -30,7 +30,7 @@ export const answerComment = () => {
     for (const answerCommentEl of answerCommentEls) {
         answerCommentEl.addEventListener('click', () => {
             const indexNumber = answerCommentEl.dataset.index
-            textEl.value = `"${comments[indexNumber].name}" '${comments[indexNumber].text}' Ответ:`
+            textEl.value = `"${comments[indexNumber].author.name}" '${comments[indexNumber].text}' Ответ:`
         })
     }
 }
