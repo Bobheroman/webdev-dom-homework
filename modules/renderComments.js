@@ -23,7 +23,8 @@ export function renderComment() {
                 month: '2-digit',
                 year: 'numeric',
                 hour: '2-digit',
-                minute: '2-digit'})}
+                minute: '2-digit',
+            })}
           </div>
         </div>
         <div class="comment-body">
