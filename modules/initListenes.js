@@ -1,26 +1,34 @@
 import { comments } from './comments.js'
 import { renderComment } from './renderComments.js'
 import { textEl } from './renderComments.js'
+import { delay } from './delay.js'
 
 //Функция лайков (добавление-убавление: количиства лайков, стиля "активного лайка")
 export const initLikeComments = () => {
-    const likeButtonEls = document.querySelectorAll('.like-button')
-
+    const likeButtonEls = document.querySelectorAll('.like-button');
+    
     for (const likeButtonEl of likeButtonEls) {
-        likeButtonEl.addEventListener('click', (event) => {
-            event.stopPropagation()
-            const indexNumber = likeButtonEl.dataset.index
-
-            if (comments[indexNumber].isLiked) {
-                comments[indexNumber].likes = comments[indexNumber].likes - 1
-                comments[indexNumber].isLiked = false
-                renderComment()
-            } else {
-                comments[indexNumber].likes = comments[indexNumber].likes + 1
-                comments[indexNumber].isLiked = true
-                renderComment()
+        likeButtonEl.addEventListener('click', async (event) => {
+            event.stopPropagation();
+            const indexNumber = parseInt(likeButtonEl.dataset.index);
+            
+            try {
+                likeButtonEl.classList.add('-loading-like');
+                
+                await delay(2000);
+                
+                if (comments[indexNumber].isLiked) {
+                    comments[indexNumber].likes--;
+                    comments[indexNumber].isLiked = false;
+                } else {
+                    comments[indexNumber].likes++;
+                    comments[indexNumber].isLiked = true;
+                }
+                
+                renderComment(indexNumber);
+            } finally {
             }
-        })
+        });
     }
 }
 
