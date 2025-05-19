@@ -18,11 +18,11 @@ export function addComment(name, text) {
         method: 'POST',
         body: JSON.stringify(newComment),
     })
+    fetch('https://wedev-api.sky.pro/api/v1/:Bobheroman/comments')
         .then((response) => {
             return response.json()
         })
         .then((data) => {
-            console.log(data)
             updateComments(data.comments)
             renderComment()
         })
