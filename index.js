@@ -4,7 +4,10 @@ import { textEl } from './modules/renderComments.js'
 import { fetchAndRenderComments } from './modules/fetchAndRenderComments.js'
 
 fetchAndRenderComments()
-document.querySelector('.loader-text').remove()
+    .then(() => {
+        document.querySelector('.loader-text').remove()
+    })
+
 export const formEl = document.querySelector('.add-form')
 export const buttonEl = document.querySelector('.add-form-button')
 

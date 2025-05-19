@@ -31,8 +31,9 @@ export function addComment(name, text) {
         .then(() => {
             formEl.classList.remove('loader')
             loaderCommentsEl.remove()
+            nameEl.classList.remove('error')
+            textEl.classList.remove('error')
         })
 
-    nameEl.classList.remove('error')
-    textEl.classList.remove('error')
+    
 }
