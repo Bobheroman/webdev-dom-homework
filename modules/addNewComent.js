@@ -1,7 +1,7 @@
-import { updateComments } from './comments.js'
+import { fetchAndRenderComments } from './fetchAndRenderComments.js'
 import { nameEl } from './renderComments.js'
 import { textEl } from './renderComments.js'
-import { renderComment } from './renderComments.js'
+import { formEl } from '../index.js'
 
 // Добавление нового коментария в список и рендер в HTML
 export function addComment(name, text) {
@@ -13,20 +13,27 @@ export function addComment(name, text) {
         text: text.value,
         name: name.value,
     }
+    formEl.classList.add('loader')
+    const loaderCommentsEl = document.createElement('div');
+    loaderCommentsEl.classList.add('loader-comments');
+    loaderCommentsEl.textContent = 'Комментарий добавляется...'
+    const comentsEl = document.querySelector('.comments')
+    comentsEl.append(loaderCommentsEl);
+    
 
     fetch('https://wedev-api.sky.pro/api/v1/:Bobheroman/comments', {
         method: 'POST',
         body: JSON.stringify(newComment),
     })
-    fetch('https://wedev-api.sky.pro/api/v1/:Bobheroman/comments')
-        .then((response) => {
-            return response.json()
+        .then(() => {
+            return fetchAndRenderComments()
         })
-        .then((data) => {
-            updateComments(data.comments)
-            renderComment()
+        .then(() => {
+            formEl.classList.remove('loader')
+            loaderCommentsEl.remove()
+            nameEl.classList.remove('error')
+            textEl.classList.remove('error')
         })
 
-    nameEl.classList.remove('error')
-    textEl.classList.remove('error')
+    
 }
