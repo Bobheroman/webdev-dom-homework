@@ -3,13 +3,13 @@ import { nameEl } from './modules/renderComments.js'
 import { textEl } from './modules/renderComments.js'
 import { fetchAndRenderComments } from './modules/fetchAndRenderComments.js'
 
-fetchAndRenderComments()
-    .then(() => {
-        document.querySelector('.loader-text').remove()
-    })
+fetchAndRenderComments().then(() => {
+    document.querySelector('.loader-text').remove()
+})
 
 export const formEl = document.querySelector('.add-form')
 export const buttonEl = document.querySelector('.add-form-button')
+export const loaderCommentsEl = document.createElement('div')
 
 buttonEl.addEventListener('click', function (e) {
     validationFunction(nameEl, textEl)
